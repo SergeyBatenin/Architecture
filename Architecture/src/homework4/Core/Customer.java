@@ -1,8 +1,8 @@
-package Core;
+package homework4.Core;
 
-import Interfaces.ICustomer;
-import Models.Ticket;
-import Models.User;
+import homework4.Interfaces.ICustomer;
+import homework4.Models.Ticket;
+import homework4.Models.User;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -25,8 +25,8 @@ public class Customer implements ICustomer {
         //Здесь создаются экземпляры классов работы с базами данных
         //Так как при уничтожении класса Customer нам больше не нужны экземпляры классов - провайдеров,
         //было решено организовать композицию с классами - провайдерами.
-        this.cashProvider = new CashProvider();
         this.ticketProvider = new TicketProvider();
+        this.cashProvider = new CashProvider();
         this.userProvider = new UserProvider();
     }
 
@@ -69,7 +69,7 @@ public class Customer implements ICustomer {
     @Override
     public List<Ticket> searchTicket(Date date, int route) throws RuntimeException {
         List<Ticket> result = new ArrayList<>();
-        var list = ticketProvider.getTickets(route);
+        List<Ticket> list = ticketProvider.getTickets(route); // переменная была ВАР
         for (Ticket ticket : list) {
             if (ticket.getDate().equals(date)) {
                 result.add(ticket);

@@ -1,8 +1,8 @@
-package Core;
+package homework4.Core;
 
-import Interfaces.IUserRepo;
-import Models.User;
-import Services.UserRepository;
+import homework4.Interfaces.IUserRepo;
+import homework4.Models.User;
+import homework4.Services.UserRepository;
 
 import java.util.List;
 

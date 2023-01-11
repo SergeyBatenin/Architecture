@@ -1,4 +1,4 @@
-package Models;
+package homework4.Models;
 
 import java.util.Date;
 
@@ -8,6 +8,11 @@ import java.util.Date;
 public class Ticket{
 
 
+    private int routeNumber;
+    private int place;
+    private int price;
+    private Date date;
+    private boolean isValid;
 
     public Ticket(int routeNumber, int place, int price, Date date, boolean isValid) {
         this.routeNumber = routeNumber;
@@ -17,6 +22,9 @@ public class Ticket{
         this.isValid = isValid;
     }
 
+    public boolean getValid() {
+        return isValid;
+    }
 
     @Override
     public String toString() {
@@ -63,5 +71,21 @@ public class Ticket{
             return true;
         }
         return false;
+    }
+
+    public Date getDate() {
+        return this.date;
+    }
+
+    public int getPrice() {
+        return this.price;
+    }
+
+    public int getPlace() {
+        return this.place;
+    }
+
+    public int getRouteNumber() {
+        return this.routeNumber;
     }
 }

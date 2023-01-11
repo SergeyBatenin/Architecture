@@ -1,6 +1,6 @@
-package Interfaces;
+package homework4.Interfaces;
 
-import Models.Carrier;
+import homework4.Models.Carrier;
 
 /**
  * Интерфейс взаимодействия с базой перевозчиков

@@ -1,7 +1,7 @@
-package ClientApplication;
+package homework4.ClientApplication;
 
-import Core.UserProvider;
-import Models.User;
+import homework4.Core.UserProvider;
+import homework4.Models.User;
 
 /**
  * Класс аутентификации пользователя
@@ -16,11 +16,11 @@ public class Authentication {
      * @return
      */
     public static User authentication(UserProvider userProvider, String login, int passHash) {
-        var client = userProvider.getClientByName(login);
+        User client = userProvider.getClientByName(login);
         if (client.getHashPassword() == passHash) {
             return client;
         } else {
-            throw new RuntimeException("Authentication fail");
+            throw new RuntimeException("Authentication failed");
         }
     }
 }

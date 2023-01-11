@@ -1,7 +1,7 @@
-package Services;
+package homework4.Services;
 
-import Interfaces.ICashRepo;
-import Models.BankAccount;
+import homework4.Interfaces.ICashRepo;
+import homework4.Models.BankAccount;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,8 +1,8 @@
-package ClientApplication;
+package homework4.ClientApplication;
 
-import Core.Customer;
-import Interfaces.ICustomer;
-import Models.Ticket;
+import homework4.Core.Customer;
+import homework4.Interfaces.ICustomer;
+import homework4.Models.Ticket;
 
 import java.util.Date;
 import java.util.List;
@@ -11,6 +11,8 @@ import java.util.List;
  * Основной класс клиентского приложения.
  */
 public class Start extends EnterData {
+
+    private final String DEFAULT_HELLO_MESSAGE = "This is a test version. The data base is not available in full mode.";
     // Связь с основной логикой осуществляется через интерфейс ICustomer.
     private ICustomer customer;
     private int ticketRouteNumber;
@@ -23,7 +25,7 @@ public class Start extends EnterData {
         boolean run = true;
         while (run) {
             printMessageLine("Application for buying bus tickets");
-            printMessageLine("This is a test version. The data base is not available in full mode.");
+            printMessageLine(DEFAULT_HELLO_MESSAGE);
             printMessageLine("To login\t\t\tenter 1\nTo register\t\t\tenter 2\nTo exit\t\t\t\tenter 0");
             System.out.print("Enter your choice > ");
             int choice = 0;
@@ -72,7 +74,7 @@ public class Start extends EnterData {
      * Меню входа зарегестрированного пользователя
      */
     private void login() {
-        printMessageLine("This is a test version. The data base is not available in full mode.");
+        printMessageLine(DEFAULT_HELLO_MESSAGE);
         printMessageLine("Login");
         System.out.print("User name: ");
         String userName = inputString();
@@ -85,7 +87,7 @@ public class Start extends EnterData {
             customer.setUser(Authentication.authentication(customer.getUserProvider(), userName, passwordHash));
         } catch (RuntimeException ex) {
             System.out.println("FAIL");
-            System.out.println(ex.getMessage());
+            System.err.println(ex.getMessage());
             System.out.println("=====================================================================================");
             return;
         }
@@ -96,7 +98,7 @@ public class Start extends EnterData {
      * Меню регистрации нового пользователя
      */
     private void register() {
-        printMessageLine("This is a test version. The data base is not available in full mode.");
+        printMessageLine(DEFAULT_HELLO_MESSAGE);
         printMessageLine("Register");
         System.out.print("Enter user name: ");
         String userName = inputString();

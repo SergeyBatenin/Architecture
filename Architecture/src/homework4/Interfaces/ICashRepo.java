@@ -1,4 +1,4 @@
-package Interfaces;
+package homework4.Interfaces;
 
 /**
  * Интерфейс взаимодействия с базой банковских операций

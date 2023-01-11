@@ -1,8 +1,8 @@
-package Interfaces;
+package homework4.Interfaces;
 
-import Core.UserProvider;
-import Models.Ticket;
-import Models.User;
+import homework4.Core.UserProvider;
+import homework4.Models.Ticket;
+import homework4.Models.User;
 
 import java.util.Date;
 import java.util.List;

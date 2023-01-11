@@ -1,7 +1,7 @@
-package Services;
+package homework4.Services;
 
-import Interfaces.IUserRepo;
-import Models.User;
+import homework4.Interfaces.IUserRepo;
+import homework4.Models.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,23 +44,23 @@ public class UserRepository implements IUserRepo {
 
     @Override
     public User read(int id) throws RuntimeException {
-        for (var client : clients) {
+        for (User client : clients) {
             if (client.getId() == id) {
                 return client;
             }
         }
-        throw new RuntimeException("A client with this ID not found");
+        throw new RuntimeException("User with this ID was not found");
     }
 
     @Override
     public User read(String userName) throws RuntimeException {
-        for (var client : clients) {
-            var clientName = client.getUserName();
+        for (User client : clients) {
+            String clientName = client.getUserName();
             if (clientName.equals(userName)) {
                 return client;
             }
         }
-        throw new RuntimeException("A client with this ID not found");
+        throw new RuntimeException("User with this LOGIN was not found");
     }
 
     @Override

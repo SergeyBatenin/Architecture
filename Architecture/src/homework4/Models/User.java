@@ -1,4 +1,4 @@
-package Models;
+package homework4.Models;
 
 import java.util.Objects;
 
@@ -8,6 +8,10 @@ import java.util.Objects;
 public class User {
 
 
+    private int id;
+    private String userName;
+    private int hashPassword;
+    private long cardNumber;
 
     public User(int id, String userName, int hashPassword, long cardNumber) {
         this.id = id;
@@ -16,6 +20,17 @@ public class User {
         this.cardNumber = cardNumber;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public int getHashPassword() {
+        return this.hashPassword;
+    }
 
     @Override
     public String toString() {
@@ -42,4 +57,5 @@ public class User {
     public int hashCode() {
         return Objects.hash(id, userName, hashPassword, cardNumber);
     }
+
 }
