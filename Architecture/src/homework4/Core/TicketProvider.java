@@ -19,9 +19,6 @@ public class TicketProvider {
         this.ticketRepo = TicketRepository.getTicketRepository();
     }
 
-
-
-
     /**
      * Метод получения билетов из базы данных
      *

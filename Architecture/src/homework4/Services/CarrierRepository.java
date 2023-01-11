@@ -27,6 +27,12 @@ public class CarrierRepository implements ICarrierRepo {
         return carrierRepository;
     }
 
+    /**
+     * Метод поиска перевозчика по его id
+     * @param id идентификатор перевозчика в базе
+     * @return  найденного перевозчика
+     * @throws RuntimeException
+     */
     @Override
     public Carrier read(int id) throws RuntimeException {
         for (var carrier : carriers) {

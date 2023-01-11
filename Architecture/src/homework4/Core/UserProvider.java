@@ -43,18 +43,18 @@ public class UserProvider {
      * @throws RuntimeException
      */
     public User getClientByName(String userName) throws RuntimeException {
-        var client = clientRepository.read(userName);
+        User client = clientRepository.read(userName);
         return client;
     }
 
     /**
      * Метод получения списка всех клиентов (для реализации тестов и администрирования), не используется.
      *
-     * @return список клиентов
+     * @return список всех клиентов
      * @throws RuntimeException
      */
     public List<User> getAllClients() throws RuntimeException {
-        var clients = clientRepository.readAll();
+        List<User> clients = clientRepository.readAll();
         return clients;
     }
 }

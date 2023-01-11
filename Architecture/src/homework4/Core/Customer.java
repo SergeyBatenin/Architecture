@@ -55,6 +55,13 @@ public class Customer implements ICustomer {
         this.client = client;
     }
 
+    /**
+     * Метод покупки билета
+     *
+     * @param ticket билет
+     * @return
+     * @throws RuntimeException
+     */
     @Override
     public boolean buyTicket(Ticket ticket) throws RuntimeException {
         boolean flag;
@@ -66,10 +73,18 @@ public class Customer implements ICustomer {
         return flag;
     }
 
+    /**
+     * Метод поиска билета на конкретную дату и маршрут
+     *
+     * @param date  дата
+     * @param route номер маршрута
+     * @return  список доступных билетов
+     * @throws RuntimeException
+     */
     @Override
     public List<Ticket> searchTicket(Date date, int route) throws RuntimeException {
         List<Ticket> result = new ArrayList<>();
-        List<Ticket> list = ticketProvider.getTickets(route); // переменная была ВАР
+        List<Ticket> list = ticketProvider.getTickets(route);
         for (Ticket ticket : list) {
             if (ticket.getDate().equals(date)) {
                 result.add(ticket);

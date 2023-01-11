@@ -10,7 +10,7 @@ public interface ICarrierRepo {
      * Получить модель перевозчика из базы по ID
      *
      * @param id идентификатор перевозчика в базе
-     * @return
+     * @return перевозчика
      */
     Carrier read(int id);
 }

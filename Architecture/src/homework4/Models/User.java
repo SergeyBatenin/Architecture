@@ -6,9 +6,7 @@ import java.util.Objects;
  * Модель пользователя
  */
 public class User {
-
-
-    private int id;
+    private int id; // id пользователя из базы
     private String userName;
     private int hashPassword;
     private long cardNumber;

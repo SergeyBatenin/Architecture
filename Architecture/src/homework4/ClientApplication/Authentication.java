@@ -11,8 +11,8 @@ public class Authentication {
      * Метод производит аутентификацию
      *
      * @param userProvider
-     * @param login
-     * @param passHash
+     * @param login     nickname пользователя
+     * @param passHash  hash пароля
      * @return
      */
     public static User authentication(UserProvider userProvider, String login, int passHash) {

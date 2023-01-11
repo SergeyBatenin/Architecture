@@ -11,7 +11,7 @@ import java.util.List;
  * Основной класс клиентского приложения.
  */
 public class Start extends EnterData {
-
+    // частая строка при выводе при взаимодействии с сервисом
     private final String DEFAULT_HELLO_MESSAGE = "This is a test version. The data base is not available in full mode.";
     // Связь с основной логикой осуществляется через интерфейс ICustomer.
     private ICustomer customer;
@@ -43,7 +43,7 @@ public class Start extends EnterData {
     /**
      * Логика ветвления запуска программы
      *
-     * @param choice
+     * @param choice выбор пользователя для действия
      * @return
      */
     private boolean runLoginRegisterMenuChoiceLogic(int choice) {
@@ -156,7 +156,7 @@ public class Start extends EnterData {
     /**
      * Логика ветвления меню покупки билетов
      *
-     * @param choice
+     * @param choice выбор пользователя для действия
      * @return
      */
     private boolean runBuyingMenuChoiceLogic(int choice) {

@@ -42,6 +42,12 @@ public class TicketRepository implements ITicketRepo {
         return true;
     }
 
+    /**
+     * Метод получения списка билетов по номеру маршрута
+     * @param routeNumber   номер маршрута
+     * @return  список доступных билетов
+     * @throws RuntimeException если билетов не найдено
+     */
     @Override
     public List<Ticket> readAll(int routeNumber) throws RuntimeException {
         List<Ticket> routeTickets = new ArrayList<>();
@@ -78,9 +84,9 @@ public class TicketRepository implements ITicketRepo {
         return false;
     }
 
-    private void generateTickets(int roureNumber, int countPlaces, int price, Date date) {
+    private void generateTickets(int routeNumber, int countPlaces, int price, Date date) {
         for (int i = 1; i <= countPlaces; i++) {
-            tickets.add(new Ticket(roureNumber, i, price, date, true));
+            tickets.add(new Ticket(routeNumber, i, price, date, true));
         }
     }
 }

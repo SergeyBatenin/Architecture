@@ -99,7 +99,7 @@ public abstract class EnterData {
         try {
             date = ft.parse(str);
         } catch (ParseException ex) {
-            throw new RuntimeException("You must enter date");
+            throw new RuntimeException("Invalid date entered");
         }
         return date;
     }

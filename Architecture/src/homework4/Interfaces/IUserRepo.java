@@ -11,10 +11,10 @@ public interface IUserRepo {
     /**
      * Создать нового пользователя
      *
-     * @param userName
-     * @param passwordHash
-     * @param cardNumber
-     * @return
+     * @param userName  nickname пользователя
+     * @param passwordHash  hash пароля пользователя
+     * @param cardNumber    номер карты
+     * @return  id пользователя
      */
     int create(String userName, int passwordHash, long cardNumber);
 
@@ -29,8 +29,8 @@ public interface IUserRepo {
     /**
      * Получить пользователя по имени
      *
-     * @param userName
-     * @return
+     * @param userName nickname пользователя
+     * @return найденный пользователь
      */
     User read(String userName);
 

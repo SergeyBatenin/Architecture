@@ -36,7 +36,11 @@ public class Ticket{
                 ", " + (isValid ? "Free" : "Busy");
     }
 
-
+    /**
+     * Метод формирования информации о билете
+     *
+     * @return сформированная информацию по билету
+     */
     public String toPrint() {
         return "Ticket" +
                 "\nRoute Number " + routeNumber +
@@ -58,7 +62,6 @@ public class Ticket{
         return this.equals((Ticket) obj);
     }
 
-
     public boolean equals(Ticket ticket) {
         boolean isIt = ticket != null
                 && ticket.getRouteNumber() == this.routeNumber
@@ -66,11 +69,11 @@ public class Ticket{
                 && ticket.getPrice() == this.price
                 && ticket.getDate() == this.date
                 && ticket.hashCode() == this.hashCode();
-
-        if (isIt) {
-            return true;
-        }
-        return false;
+//        if (isIt) {
+//            return true;
+//        }
+//        return false;
+        return isIt;
     }
 
     public Date getDate() {

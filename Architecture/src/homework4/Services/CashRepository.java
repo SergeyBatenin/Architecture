@@ -35,30 +35,30 @@ public class CashRepository implements ICashRepo {
     }
 
     @Override
-    public boolean transaction(int payment, long cardFrom, long carrierСard) throws RuntimeException {
+    public boolean transaction(int payment, long clientCard, long carrierCard) throws RuntimeException {
         // Проводим валидацию аккаунтов
-        BankAccount from = null;
-        BankAccount to = null;
+        BankAccount passenger = null;
+        BankAccount carrier = null;
         for (var client : clients) {
-            if (client.getCard() == cardFrom) {
-                from = client;
+            if (client.getCard() == clientCard) {
+                passenger = client;
             }
-            if (client.getCard() == carrierСard) {
-                to = client;
+            if (client.getCard() == carrierCard) {
+                carrier = client;
             }
         }
         // Проверяем наличие банковских карт продавца и покупателя
-        if (from == null) {
-            throw new RuntimeException("No withdrawal account.");
+        if (passenger == null) {
+            throw new RuntimeException("No money  client account.");
         }
-        if (to == null) {
-            throw new RuntimeException("No money account.");
+        if (carrier == null) {
+            throw new RuntimeException("No money carrier account.");
         }
         // Проверяем баланс средств на картах
-        if (from.getBalance() - payment < 0) {
+        if (passenger.getBalance() < payment) {
             throw new RuntimeException("Insufficient funds.");
         }
-        if (to.getBalance() > Integer.MAX_VALUE - payment) {
+        if (carrier.getBalance() > Integer.MAX_VALUE - payment) {
             throw new RuntimeException("Too much amount.");
         }
         // Блок finally выполнится в любом случае, даже если произойдет исключение.
@@ -66,12 +66,12 @@ public class CashRepository implements ICashRepo {
         // проведения транзакции.
         try {
         } finally {
-            clients.remove(from);
-            clients.remove(to);
-            from.setBalance(from.getBalance() - payment);
-            to.setBalance(to.getBalance() + payment);
-            clients.add(from);
-            clients.add(to);
+            clients.remove(passenger);
+            clients.remove(carrier);
+            passenger.setBalance(passenger.getBalance() - payment);
+            carrier.setBalance(carrier.getBalance() + payment);
+            clients.add(passenger);
+            clients.add(carrier);
         }
         return true;
     }
