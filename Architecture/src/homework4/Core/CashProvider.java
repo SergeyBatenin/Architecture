@@ -1,6 +1,14 @@
+//package Core;
+//
+//import Interfaces.ICarrierRepo;
+//import Interfaces.ICashRepo;
+//import Models.Carrier;
+//import Models.Ticket;
+//import Models.User;
+//import Services.CarrierRepository;
+//import Services.CashRepository;
 package homework4.Core;
 
-//import Models.Carrier;
 import homework4.Interfaces.ICarrierRepo;
 import homework4.Interfaces.ICashRepo;
 import homework4.Models.Ticket;
@@ -12,10 +20,10 @@ import homework4.Services.CashRepository;
  * Класс - провайдер для взаимодействия с банком и базой перевозчиков
  */
 public class CashProvider {
-
-
-    private final ICarrierRepo carrierRepository;
-    private final ICashRepo cashRepository;
+    private final ICarrierRepo carrierRepository; // база перевозчиков
+    private final ICashRepo cashRepository; // база
+    private long cardNumber;
+    private boolean isAuthorized;
 
     /**
      * Конструктор класса

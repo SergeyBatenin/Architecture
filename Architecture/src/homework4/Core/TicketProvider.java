@@ -1,3 +1,8 @@
+//package Core;
+//
+//import Interfaces.ITicketRepo;
+//import Models.Ticket;
+//import Services.TicketRepository;
 package homework4.Core;
 
 import homework4.Interfaces.ITicketRepo;
@@ -27,7 +32,8 @@ public class TicketProvider {
      * @throws RuntimeException
      */
     public List<Ticket> getTickets(int route) {
-        return null;//заглушка
+        return ticketRepo.readAll(route);
+        //return null;//заглушка
     }
 
     /**
@@ -37,6 +43,7 @@ public class TicketProvider {
      * @return результат выполнения операции
      */
     public boolean updateTicketStatus(Ticket ticket) {
-        return true;// заглушка
+        return ticketRepo.update(ticket);
+        //return true;// заглушка
     }
 }

@@ -1,3 +1,7 @@
+//package Services;
+//
+//import Interfaces.IUserRepo;
+//import Models.User;
 package homework4.Services;
 
 import homework4.Interfaces.IUserRepo;
@@ -16,10 +20,10 @@ public class UserRepository implements IUserRepo {
     private UserRepository() {
         //имитация работы базы клиентов
         clients = new ArrayList<>();
-        clients.add(new User(1, "Ivan", "1111".hashCode(), 2));
-        clients.add(new User(2, "Vasiliy", "2222".hashCode(), 3));
-        clients.add(new User(3, "Fedor", "3333".hashCode(), 4));
-        clients.add(new User(4, "Grigoriy", "4444".hashCode(), 5));
+        clients.add(new User(1, "Ivan", "1111".hashCode(), 654321));
+        clients.add(new User(2, "Vasiliy", "2222".hashCode(), 765432));
+        clients.add(new User(3, "Fedor", "3333".hashCode(), 876543));
+        clients.add(new User(4, "Grigoriy", "4444".hashCode(), 987654));
     }
 
     public static UserRepository getClientRepository() {
@@ -33,8 +37,8 @@ public class UserRepository implements IUserRepo {
     public int create(String userName, int passwordHash, long cardNumber) throws RuntimeException {
         int id = clients.size() + 1;
         User client = new User(id, userName, passwordHash, cardNumber);
-        for (var currentClient : clients) {
-            if (currentClient.getId() == client.getId()) {
+        for (User currentClient : clients) {
+            if (currentClient.getUserName().equals(client.getUserName())) {
                 throw new RuntimeException("A client already exists");
             }
         }

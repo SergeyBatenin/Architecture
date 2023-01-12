@@ -1,3 +1,8 @@
+//package ClientApplication;
+//
+//import Core.Customer;
+//import Interfaces.ICustomer;
+//import Models.Ticket;
 package homework4.ClientApplication;
 
 import homework4.Core.Customer;
@@ -11,15 +16,22 @@ import java.util.List;
  * Основной класс клиентского приложения.
  */
 public class Start extends EnterData {
-    // частая строка при выводе при взаимодействии с сервисом
+    // Частая строка при выводе при взаимодействии с сервисом
     private final String DEFAULT_HELLO_MESSAGE = "This is a test version. The data base is not available in full mode.";
+
+    // Установка цвета для вывода ошибок в консоль красным цветом
+    public static final String ERROR_COLOR = "\u001B[31m"; // This color is Red
+
+    // Возврат к стандартному цвету вывода в консоль
+    public static final String ANSI_RESET = "\u001B[0m";
+
     // Связь с основной логикой осуществляется через интерфейс ICustomer.
     private ICustomer customer;
     private int ticketRouteNumber;
     private Date ticketDate;
 
     /**
-     * Метод запуска меню входа и регистрации
+     * Стартовый метод запуска меню входа и регистрации
      */
     public void runLoginRegisterMenu() {
         boolean run = true;
@@ -32,10 +44,10 @@ public class Start extends EnterData {
             try {
                 choice = inputInt(0, 2);
             } catch (RuntimeException ex) {
-                System.err.println(ex.getMessage());
+                printMessageError(ex.getMessage());
                 continue;
             }
-            System.out.println("=====================================================================================");
+            printDelimiterLine();
             run = runLoginRegisterMenuChoiceLogic(choice);
         }
     }
@@ -50,7 +62,7 @@ public class Start extends EnterData {
         switch (choice) {
             case 1:
                 login();
-                if (customer.getUser() == null) {
+                if (customer == null) {
                     break;
                 } else {
                     runBuyingMenu();
@@ -65,6 +77,7 @@ public class Start extends EnterData {
                     break;
                 }
             default:
+                printMessageLine("Goodbye! We will be glad to see you again");
                 return false;
         }
         return true;
@@ -80,15 +93,16 @@ public class Start extends EnterData {
         String userName = inputString();
         System.out.print("Password: ");
         int passwordHash = inputString().hashCode();
-        System.out.println("=====================================================================================");
+        printDelimiterLine();
         System.out.print("Enter the system... ");
         customer = new Customer();
         try {
             customer.setUser(Authentication.authentication(customer.getUserProvider(), userName, passwordHash));
         } catch (RuntimeException ex) {
-            System.out.println("FAIL");
-            System.err.println(ex.getMessage());
-            System.out.println("=====================================================================================");
+            customer = null;
+            printMessageError("FAIL");
+            printMessageError(ex.getMessage());
+            printDelimiterLine();
             return;
         }
         printMessageLine("OK");
@@ -107,13 +121,20 @@ public class Start extends EnterData {
         System.out.print("Repeat password: ");
         int passwordHash2 = inputString().hashCode();
         if (passwordHash != passwordHash2) {
-            System.out.println("=====================================================================================");
-            printMessageLine("Passwords do not match. Exit register.");
+            printDelimiterLine();
+            printMessageError("Passwords do not match. Exit register.");
             return;
         }
         System.out.print("Enter card number: ");
-        long cardNumber = inputLong(1L, 9999_9999_9999_9999L);
-        System.out.println("=====================================================================================");
+        long cardNumber;
+        try {
+            cardNumber = inputLong(1L, 9999_9999_9999_9999L);
+        } catch (RuntimeException ex) {
+            printMessageError(ex.getMessage());
+            printDelimiterLine();
+            return;
+        }
+        printDelimiterLine();
         System.out.print("Register the system... ");
         customer = new Customer();
         int id;
@@ -121,12 +142,13 @@ public class Start extends EnterData {
             id = customer.getUserProvider().createClient(userName, passwordHash, cardNumber);
             customer.setUser(Authentication.authentication(customer.getUserProvider(), userName, passwordHash));
         } catch (RuntimeException ex) {
-            System.out.println("FAIL");
-            System.out.println(ex.getMessage());
-            System.out.println("=====================================================================================");
+            customer = null;
+            printMessageError("FAIL");
+            printMessageError(ex.getMessage());
+            printDelimiterLine();
             return;
         }
-        printMessageLine("OK. user " + customer.getUser().getUserName() + " with ID " + id + "added to base.");
+        printMessageLine("OK. User " + "\u001B[32m" + customer.getUser().getUserName() + ANSI_RESET + " with ID " + id + " added to base.");
     }
 
     /**
@@ -143,14 +165,14 @@ public class Start extends EnterData {
             try {
                 choice = inputInt(0, 1);
             } catch (RuntimeException ex) {
-                System.out.println("==============================================================================" +
-                        "=======");
-                printMessageLine(ex.getMessage());
+                printDelimiterLine();
+                printMessageError(ex.getMessage());
                 continue;
             }
-            System.out.println("=====================================================================================");
+            printDelimiterLine();
             run = runBuyingMenuChoiceLogic(choice);
         }
+        customer = null;
     }
 
     /**
@@ -165,6 +187,7 @@ public class Start extends EnterData {
                 ticketRouteNumber = runSelectRouteMenu();
                 if (ticketRouteNumber > 0) {
                     ticketDate = runSelectDate();
+                    System.out.println("\u001B[32m" + "TicketDate равно NULl?? -> " + (ticketDate == null) + ANSI_RESET);
                     if (ticketDate != null) {
                         try {
                             customer.setSelectedTickets(customer.searchTicket(ticketDate, ticketRouteNumber));
@@ -174,10 +197,7 @@ public class Start extends EnterData {
                         }
                         printAllTickets(customer.getSelectedTickets());
                         buyTicketMenu();
-                        return true;
-                        //return;
                     }
-                    return true;
                 }
                 return true;
             default:
@@ -191,17 +211,20 @@ public class Start extends EnterData {
      * @return номер маршрута
      */
     private int runSelectRouteMenu() {
+        // Временная подсказка для тестирования
+        System.out.println("HINT* Для тестирования доступны маршруты №1 и №2");
         printMessageLine("Input route number and date. | User " + customer.getUser().getUserName() + " |");
         System.out.print("Route number > ");
-        //Здесь ограничиваем число маршрутов. У на всего 2 маршрута.
+        //Здесь ограничиваем число маршрутов. У наc всего 2 маршрута.
         int numRoute;
         try {
             numRoute = inputInt(1, 2);
         } catch (RuntimeException ex) {
-            printMessageLine(ex.getMessage());
+            printMessageError(ex.getMessage());
+            printDelimiterLine();
             return -1;
         }
-        System.out.println("=====================================================================================");
+        printDelimiterLine();
         return numRoute;
     }
 
@@ -211,16 +234,18 @@ public class Start extends EnterData {
      * @return дата поездки
      */
     private Date runSelectDate() {
+        // Временная подсказка для тестирования
+        System.out.println("HINT* Доступные даты для тестирования 2023-01-13, 2023-01-14");
         System.out.print("Date (format: YYYY-MM-DD) > ");
-        //Здесь ограничиваем число маршрутов. У на всего 2 маршрута.
         Date date;
         try {
             date = inputDate();
         } catch (RuntimeException ex) {
-            printMessageLine(ex.getMessage());
+            printMessageError(ex.getMessage());
+            printDelimiterLine();
             return null;
         }
-        System.out.println("=====================================================================================");
+        printDelimiterLine();
         return date;
     }
 
@@ -233,7 +258,7 @@ public class Start extends EnterData {
         for (var t : ticks) {
             System.out.println(t.toString());
         }
-        System.out.println("=====================================================================================");
+        printDelimiterLine();
     }
 
     /**
@@ -244,7 +269,7 @@ public class Start extends EnterData {
         System.out.print("To buy a ticket for bus route " + ticketRouteNumber + " on the " + ticketDate + " enter" +
                 " \"Yes\" > ");
         String answer = inputString();
-        System.out.println("=====================================================================================");
+        printDelimiterLine();
         buyTicketMenuConfirmLogic(answer);
     }
 
@@ -280,6 +305,12 @@ public class Start extends EnterData {
      */
     private void printMessageLine(String message) {
         System.out.println(message);
+        printDelimiterLine();
+    }
+    private void printMessageError(String message) {
+        System.out.println(ERROR_COLOR + message + ANSI_RESET);
+    }
+    private void printDelimiterLine() {
         System.out.println("=====================================================================================");
     }
 }

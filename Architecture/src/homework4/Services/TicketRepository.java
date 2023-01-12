@@ -1,3 +1,7 @@
+//package Services;
+//
+//import Interfaces.ITicketRepo;
+//import Models.Ticket;
 package homework4.Services;
 
 import homework4.Interfaces.ITicketRepo;
@@ -16,16 +20,24 @@ public class TicketRepository implements ITicketRepo {
     private TicketRepository() {
         //здесь симуляция работы с БД
         tickets = new ArrayList<>();
-        String strDate = "2022-10-27";
+        String strDate1 = "2023-01-13";
+        String strDate2 = "2023-01-14";
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        Date date;
+        Date date1;
+        Date date2;
         try {
-            date = sdf.parse(strDate);
+            date1 = sdf.parse(strDate1);
+            date2 = sdf.parse(strDate2);
         } catch (Exception ex) {
-            date = null;
+            date1 = new Date();
+            date2 = new Date();
         }
-        generateTickets(1, 6, 10, date);
-        generateTickets(2, 4, 15, date);
+        // Генерация билетов для маршрутов №1, №2 на одну дату
+        generateTickets(1, 6, 10, date1);
+        generateTickets(2, 4, 15, date1);
+        // Генерация билетов для маршрутов №1, №2 на другую дату
+        generateTickets(1, 6, 10, date2);
+        generateTickets(2, 4, 15, date2);
     }
 
     public static TicketRepository getTicketRepository() {
@@ -52,14 +64,14 @@ public class TicketRepository implements ITicketRepo {
     public List<Ticket> readAll(int routeNumber) throws RuntimeException {
         List<Ticket> routeTickets = new ArrayList<>();
         for (Ticket ticket : tickets) {
-            if (ticket.getRouteNumber() == routeNumber && ticket.getValid() == true) {
+            if (ticket.getRouteNumber() == routeNumber && ticket.getValid()) {
                 routeTickets.add(ticket);
             }
         }
         if (routeTickets.isEmpty()) {
             throw new RuntimeException("There are no tickets for this bus.");
         }
-        return tickets;
+        return routeTickets;
     }
 
     @Override

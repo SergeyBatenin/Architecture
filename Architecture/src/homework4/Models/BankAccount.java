@@ -1,11 +1,10 @@
+//package Models;
 package homework4.Models;
 
 /**
  * Модель банковского аккаунта
  */
 public class BankAccount {
-
-
     private long card;
     private long oldCard;
     private int balance;

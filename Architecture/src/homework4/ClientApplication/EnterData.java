@@ -1,3 +1,4 @@
+//package ClientApplication;
 package homework4.ClientApplication;
 
 import java.text.ParseException;
@@ -80,11 +81,11 @@ public abstract class EnterData {
     /**
      * Meтод ввода даты и ее валидация
      *
-     * @return дата
+     * @return дата поездки
      * @throws RuntimeException
      */
     protected Date inputDate() throws RuntimeException {
-        SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         Scanner in = new Scanner(System.in);
         String str;
         Date date;
@@ -97,7 +98,7 @@ public abstract class EnterData {
             throw new RuntimeException("You must something enter");
         }
         try {
-            date = ft.parse(str);
+            date = format.parse(str);
         } catch (ParseException ex) {
             throw new RuntimeException("Invalid date entered");
         }

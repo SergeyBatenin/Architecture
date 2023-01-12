@@ -1,3 +1,7 @@
+//package Services;
+//
+//import Interfaces.ICarrierRepo;
+//import Models.Carrier;
 package homework4.Services;
 
 import homework4.Interfaces.ICarrierRepo;
@@ -16,7 +20,8 @@ public class CarrierRepository implements ICarrierRepo {
     private CarrierRepository() {
         // Заполняем базу данных
         carriers = new ArrayList<>();
-        carriers.add(new Carrier(1, 1));
+        carriers.add(new Carrier(1, 123456));
+        carriers.add(new Carrier(2, 234567));
 
     }
 
@@ -31,7 +36,7 @@ public class CarrierRepository implements ICarrierRepo {
      * Метод поиска перевозчика по его id
      * @param id идентификатор перевозчика в базе
      * @return  найденного перевозчика
-     * @throws RuntimeException
+     * @throws RuntimeException если перевозчик не найден
      */
     @Override
     public Carrier read(int id) throws RuntimeException {
