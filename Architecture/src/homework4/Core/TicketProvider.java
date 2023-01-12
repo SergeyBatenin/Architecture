@@ -33,7 +33,6 @@ public class TicketProvider {
      */
     public List<Ticket> getTickets(int route) {
         return ticketRepo.readAll(route);
-        //return null;//заглушка
     }
 
     /**
@@ -44,6 +43,5 @@ public class TicketProvider {
      */
     public boolean updateTicketStatus(Ticket ticket) {
         return ticketRepo.update(ticket);
-        //return true;// заглушка
     }
 }

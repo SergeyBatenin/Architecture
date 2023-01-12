@@ -31,6 +31,10 @@ public class User {
         return this.hashPassword;
     }
 
+    public long getCardNumber() {
+        return cardNumber;
+    }
+
     @Override
     public String toString() {
         return "Client { " +

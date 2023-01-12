@@ -9,10 +9,19 @@ public class BankAccount {
     private long oldCard;
     private int balance;
 
-    public BankAccount() {
-        this.card = oldCard + 1;
-        oldCard = this.card;
-        balance = 1000;
+    public BankAccount(long cardNumber) {
+        this.card = cardNumber;
+        this.oldCard = this.card;
+        this.balance = 1000;
+    }
+
+    /**
+     * Метод замены банковской карты
+     * @param newCardNumber устанавливает текущую банковскую карту
+     */
+    public void updateCard(long newCardNumber) {
+        oldCard = card;
+        card = newCardNumber;
     }
 
     public long getCard() {

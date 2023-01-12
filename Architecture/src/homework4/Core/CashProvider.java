@@ -11,10 +11,14 @@ package homework4.Core;
 
 import homework4.Interfaces.ICarrierRepo;
 import homework4.Interfaces.ICashRepo;
+import homework4.Models.BankAccount;
+import homework4.Models.Carrier;
 import homework4.Models.Ticket;
 import homework4.Models.User;
 import homework4.Services.CarrierRepository;
 import homework4.Services.CashRepository;
+
+import java.util.List;
 
 /**
  * Класс - провайдер для взаимодействия с банком и базой перевозчиков
@@ -22,7 +26,7 @@ import homework4.Services.CashRepository;
 public class CashProvider {
     private final ICarrierRepo carrierRepository; // база перевозчиков
     private final ICashRepo cashRepository; // база
-    private long cardNumber;
+    private long clientCardNumber;
     private boolean isAuthorized;
 
     /**
@@ -42,10 +46,11 @@ public class CashProvider {
      * @return результат выполнения операции
      * @throws RuntimeException
      */
-    // подсказка  Carrier carrier = carrierRepository.read(1);
-    // подсказка  return cashRepository.transaction(ticket.getPrice(), cardNumber, carrier.getCardNumber());
     public boolean buy(Ticket ticket) {
-        return false;//заглушка
+        Carrier carrier = carrierRepository.read(ticket.getRouteNumber());
+        long carrierCard = carrier.getCardNumber();
+        boolean transactionSuccess = cashRepository.transaction(ticket.getPrice(), clientCardNumber, carrierCard);
+        return transactionSuccess;
     }
 
     /**
@@ -55,6 +60,15 @@ public class CashProvider {
      */
     public void authorization(User client) {
     // заглушка
+        List<BankAccount> clients = cashRepository.getClients();
+        for (BankAccount bankAccount : clients) {
+            if (client.getCardNumber() == bankAccount.getCard()) {
+                clientCardNumber = bankAccount.getCard();
+                isAuthorized = true;
+                return;
+            }
+        }
+        throw new RuntimeException("BankAccount was not found");
     }
 
 

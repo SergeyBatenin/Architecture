@@ -12,8 +12,11 @@ public class Carrier {
         this.id = id;
         this.cardNumber = cardNumber;
     }
-
     public int getId() {
         return this.id;
+    }
+
+    public long getCardNumber() {
+        return cardNumber;
     }
 }

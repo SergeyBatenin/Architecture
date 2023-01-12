@@ -68,7 +68,7 @@ public class TicketRepository implements ITicketRepo {
                 routeTickets.add(ticket);
             }
         }
-        if (routeTickets.isEmpty()) {
+        if (routeTickets.isEmpty()) {   // ??? Нужна ли эта проверка? На текущий момент данной ситуации быть не может
             throw new RuntimeException("There are no tickets for this bus.");
         }
         return routeTickets;
@@ -79,6 +79,7 @@ public class TicketRepository implements ITicketRepo {
         for (Ticket tick : tickets) {
             if (tick.equals(ticket)) {
                 tickets.remove(tick);
+                ticket.setValid(false);
                 tickets.add(ticket);
                 return true;
             }

@@ -23,6 +23,10 @@ public class Ticket{
         this.isValid = isValid;
     }
 
+    public void setValid(boolean valid) {
+        isValid = valid;
+    }
+
     public boolean getValid() {
         return isValid;
     }

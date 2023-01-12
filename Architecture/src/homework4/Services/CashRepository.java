@@ -25,10 +25,17 @@ public class CashRepository implements ICashRepo {
     private CashRepository() {
         //имитация работы банка
         clients = new ArrayList<>();
-        for (int i = 1; i <= 5; i++) {
-            clients.add(new BankAccount());
-        }
-
+//        for (int i = 1; i <= 5; i++) {
+//            clients.add(new BankAccount((long) (i * 1000000000 * Math.PI)));
+//        }
+        // из имитационной базы данных пользователей добавим банковские аккаунты
+        clients.add(new BankAccount(1111));
+        clients.add(new BankAccount(2222));
+        clients.add(new BankAccount(3333));
+        clients.add(new BankAccount(4444));
+        // из имитационной базы перевозчиков добавим банковские аккаунты
+        clients.add(new BankAccount(1));
+        clients.add(new BankAccount(2));
     }
 
     public static CashRepository getCashRepository() {
@@ -38,6 +45,14 @@ public class CashRepository implements ICashRepo {
         return cashRepository;
     }
 
+    /**
+     * Метод осуществления транзакции по приобретению билета
+     * @param payment  платеж
+     * @param clientCard карта покупателя
+     * @param carrierCard   карта продавца
+     * @return
+     * @throws RuntimeException
+     */
     @Override
     public boolean transaction(int payment, long clientCard, long carrierCard) throws RuntimeException {
         // Проводим валидацию аккаунтов

@@ -192,7 +192,7 @@ public class Start extends EnterData {
                         try {
                             customer.setSelectedTickets(customer.searchTicket(ticketDate, ticketRouteNumber));
                         } catch (RuntimeException ex) {
-                            printMessageLine(ex.getMessage());
+                            printMessageError(ex.getMessage());
                             return true;
                         }
                         printAllTickets(customer.getSelectedTickets());
@@ -250,13 +250,13 @@ public class Start extends EnterData {
     }
 
     /**
-     * Метод вывода в консоль списка билетов
+     * Метод вывода в консоль списка подходящих по дате и маршоруту билетов
      *
-     * @param ticks список билетов
+     * @param tickets список билетов
      */
-    private void printAllTickets(List<Ticket> ticks) {
-        for (var t : ticks) {
-            System.out.println(t.toString());
+    private void printAllTickets(List<Ticket> tickets) {
+        for (Ticket ticket : tickets) {
+            System.out.println(ticket.toString());
         }
         printDelimiterLine();
     }
@@ -280,17 +280,18 @@ public class Start extends EnterData {
      */
     private void buyTicketMenuConfirmLogic(String answer) {
         if (answer.equalsIgnoreCase("YES")) {
-            for (var t : customer.getSelectedTickets()) {
-                if (t.getDate().equals(ticketDate) && t.getRouteNumber() == ticketRouteNumber && t.getValid()) {
-                    boolean flag = false;
+            for (Ticket ticket : customer.getSelectedTickets()) {
+                if (ticket.getDate().equals(ticketDate) && ticket.getRouteNumber() == ticketRouteNumber && ticket.getValid()) {
+                    boolean flag;
                     try {
-                        flag = customer.buyTicket(t);
+                        flag = customer.buyTicket(ticket);
                     } catch (RuntimeException ex) {
-                        printMessageLine(ex.getMessage());
+                        printMessageError(ex.getMessage());
                         return;
                     }
                     if (flag) {
-                        printMessageLine(t.toPrint());
+                        System.out.println("You have purchased a ticket:");
+                        printMessageLine(ticket.toPrint());
                         return;
                     }
                 }
